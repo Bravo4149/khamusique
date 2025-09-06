@@ -6,22 +6,23 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh; /* allow scrolling if content overflows */
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* start at top so mobile can scroll */
   text-align: center;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden; /* allow vertical scroll but no horizontal */
   color: #fff;
+  padding: 20px 10px; /* breathing room on small screens */
 }
 
 /* Background with blur */
 body::before {
   content: "";
-  position: absolute;
+  position: fixed; /* fixed so it covers scroll area */
   top: 0;
   left: 0;
   width: 100%;
@@ -31,10 +32,9 @@ body::before {
   z-index: -2;
 }
 
-/* Dark overlay to make text pop */
 body::after {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -44,71 +44,70 @@ body::after {
 }
 
 .logo {
-  width: 180px;
-  margin-bottom: 20px;
+  width: 160px;
+  margin: 20px auto;
   z-index: 1;
 }
 
 .content {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
-  padding: 30px;
+  padding: 25px;
   border-radius: 20px;
   max-width: 650px;
-  width: 90%;
+  width: 100%;
   z-index: 1;
 }
 
 h1 {
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   margin-bottom: 10px;
   color: #ffd700;
 }
 
 .subtitle {
-  font-size: 1.3rem;
-  margin-bottom: 25px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
   color: #ddd;
 }
 
-/* Why Sunday Feast Section */
+/* Why Section */
 .why {
-  margin: 25px 0;
-  padding: 20px 25px;
+  margin: 20px 0;
+  padding: 15px 20px;
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 215, 0, 0.3);
   border-radius: 15px;
-  text-align: center;
 }
 
 .why h2 {
-  font-size: 1.6rem;
-  margin-bottom: 12px;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
   color: #ffd700;
   text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .why p {
-  font-size: 1.05rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.5;
   color: #eee;
 }
 
 /* Countdown */
 .countdown {
   display: flex;
+  flex-wrap: wrap; /* wrap on smaller screens */
   justify-content: center;
-  margin: 35px 0;
-  gap: 25px;
+  margin: 25px 0;
+  gap: 15px;
 }
 
 .time-box {
   background: rgba(0, 0, 0, 0.6);
-  padding: 20px 15px;
-  border-radius: 15px;
-  width: 100px;
-  height: 130px;
+  padding: 15px;
+  border-radius: 12px;
+  width: 90px;
+  height: 110px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,16 +115,15 @@ h1 {
 }
 
 .time {
-  font-size: 3rem; /* Bigger countdown numbers */
+  font-size: 2.5rem;
   font-weight: bold;
   color: #ffd700;
-  line-height: 1;
   text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
 .label {
-  font-size: 1rem;
-  margin-top: 10px;
+  font-size: 0.9rem;
+  margin-top: 8px;
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
@@ -133,9 +131,9 @@ h1 {
 
 /* Button */
 .btn {
-  margin-top: 25px;
-  padding: 14px 35px;
-  font-size: 1.2rem;
+  margin-top: 20px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
   font-weight: bold;
   background: linear-gradient(45deg, #ff6b6b, #f94d6a);
   border: none;
@@ -148,4 +146,41 @@ h1 {
 .btn:hover {
   background: linear-gradient(45deg, #f94d6a, #ff6b6b);
   transform: scale(1.05);
+}
+
+/* 📱 Responsive tweaks */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .why h2 {
+    font-size: 1.2rem;
+  }
+
+  .why p {
+    font-size: 0.95rem;
+  }
+
+  .time-box {
+    width: 70px;
+    height: 90px;
+  }
+
+  .time {
+    font-size: 2rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 10px 22px;
+  }
 }
