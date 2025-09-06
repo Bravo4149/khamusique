@@ -1,199 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sunday Feast - By DJ Khamusique</title>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      /* Music Player */
-      .music-player {
-        margin-top: 25px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunday Feast - By DJ Khamusique</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background overlays handled by CSS -->
 
-      #music-toggle {
-        padding: 12px 25px;
-        font-size: 1rem;
-        font-weight: bold;
-        background: linear-gradient(45deg, #ffd700, #ff6b6b);
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        color: white;
-        transition: 0.3s;
-      }
+  <div class="content-wrapper">
+    <!-- Logo -->
+    <img src="images/sundayfeast.png" alt="Sunday Feast Logo" class="logo">
 
-      #music-toggle:hover {
-        transform: scale(1.05);
-      }
+    <!-- Title -->
+    <h1>Sunday Feast</h1>
+    <p class="subtitle">By DJ Khamusique</p>
+    <p>Venue: Thuthukani</p>
+    <p>Theme: Denim & White</p>
 
-      /* Visualizer bars */
-      .visualizer {
-        display: none;
-        align-items: flex-end;
-        gap: 5px;
-        height: 40px;
-      }
+    <!-- Why Section -->
+    <section class="why">
+      <h2>Why Sunday Feast?</h2>
+      <p>
+        DJ Khamusique dreamed of being a celebrity, but life showed him a
+        greater purpose. Through soulful deep house, food, and drinks,
+        <strong>Sunday Feast</strong> is his gift to Bethlehem township: a
+        space for joy, connection, and community.
+      </p>
+    </section>
 
-      .visualizer span {
-        display: block;
-        width: 6px;
-        height: 10px;
-        background: #ffd700;
-        border-radius: 3px;
-        animation: bounce 1s infinite;
-      }
-
-      .visualizer span:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      .visualizer span:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-      .visualizer span:nth-child(4) {
-        animation-delay: 0.6s;
-      }
-      .visualizer span:nth-child(5) {
-        animation-delay: 0.8s;
-      }
-
-      @keyframes bounce {
-        0%, 100% { height: 10px; }
-        50% { height: 40px; }
-      }
-
-      /* 📱 Mobile tweaks */
-      @media (max-width: 600px) {
-        h1 {
-          font-size: 2rem;
-        }
-        .subtitle {
-          font-size: 1rem;
-        }
-        .time {
-          font-size: 2rem;
-        }
-        #music-toggle {
-          font-size: 0.9rem;
-          padding: 10px 20px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Sunday Feast Logo -->
-    <img src="images/sundayfeast.png" alt="Sunday Feast Logo" class="logo" />
-
-    <div class="content">
-      <h1>Sunday Feast</h1>
-      <p class="subtitle">By DJ Khamusique</p>
-      <p>Venue: Thuthukani</p>
-      <p>Theme: Denim & White</p>
-
-      <!-- Why Section -->
-      <section class="why">
-        <h2>Why Sunday Feast?</h2>
-        <p>
-          DJ Khamusique dreamed of being a celebrity, but life showed him a
-          greater purpose. Through soulful deep house, food, and drinks,
-          <strong>Sunday Feast</strong> is his gift to Bethlehem township: a
-          space for joy, connection, and community.
-        </p>
-      </section>
-
-      <!-- Countdown -->
-      <div class="countdown" id="countdown">
-        <div class="time-box">
-          <div class="time" id="days">0</div>
-          <div class="label">Days</div>
-        </div>
-        <div class="time-box">
-          <div class="time" id="hours">0</div>
-          <div class="label">Hours</div>
-        </div>
-        <div class="time-box">
-          <div class="time" id="minutes">0</div>
-          <div class="label">Minutes</div>
-        </div>
-        <div class="time-box">
-          <div class="time" id="seconds">0</div>
-          <div class="label">Seconds</div>
-        </div>
+    <!-- Countdown -->
+    <div class="countdown" id="countdown">
+      <div class="time-box">
+        <div class="time" id="days">0</div>
+        <div class="label">Days</div>
       </div>
-
-      <!-- Buy Tickets Button -->
-      <a href="https://pay.yoco.com/sunday-feast" target="_blank">
-        <button class="btn">Buy Tickets</button>
-      </a>
-
-      <!-- Music Player -->
-      <div class="music-player">
-        <button id="music-toggle">▶ Play Music</button>
-        <div class="visualizer" id="visualizer">
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
+      <div class="time-box">
+        <div class="time" id="hours">0</div>
+        <div class="label">Hours</div>
       </div>
-
-      <audio id="bg-music" loop>
-        <source src="music/soulful-house.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
+      <div class="time-box">
+        <div class="time" id="minutes">0</div>
+        <div class="label">Minutes</div>
+      </div>
+      <div class="time-box">
+        <div class="time" id="seconds">0</div>
+        <div class="label">Seconds</div>
+      </div>
     </div>
 
-    <script>
-      // Countdown
-      const eventDate = new Date("2025-10-05T00:00:00").getTime();
-      const daysEl = document.getElementById("days");
-      const hoursEl = document.getElementById("hours");
-      const minutesEl = document.getElementById("minutes");
-      const secondsEl = document.getElementById("seconds");
+    <!-- Buy Tickets -->
+    <button class="btn" onclick="window.open('https://pay.yoco.com/sunday-feast', '_blank')">Buy Tickets</button>
 
-      function updateCountdown() {
-        const now = new Date().getTime();
-        const diff = eventDate - now;
-        if (diff <= 0) {
-          daysEl.innerText = hoursEl.innerText = minutesEl.innerText = secondsEl.innerText = "0";
-          return;
-        }
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        daysEl.innerText = days;
-        hoursEl.innerText = hours;
-        minutesEl.innerText = minutes;
-        secondsEl.innerText = seconds;
+    <!-- Music Player -->
+    <div class="music-player">
+      <button id="music-toggle">Play Music</button>
+      <audio id="music" src="music/yourtrack.mp3" loop></audio>
+      <div class="visualizer">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Countdown Script -->
+  <script>
+    const eventDate = new Date("2025-10-05T00:00:00").getTime();
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = eventDate - now;
+
+      if(diff <= 0){
+        daysEl.innerText = hoursEl.innerText = minutesEl.innerText = secondsEl.innerText = "0";
+        return;
       }
-      setInterval(updateCountdown, 1000);
-      updateCountdown();
 
-      // Music player + visualizer
-      const music = document.getElementById("bg-music");
-      const toggle = document.getElementById("music-toggle");
-      const visualizer = document.getElementById("visualizer");
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((diff % (1000*60)) / 1000);
 
-      toggle.addEventListener("click", () => {
-        if (music.paused) {
-          music.play();
-          toggle.textContent = "⏸ Pause Music";
-          visualizer.style.display = "flex";
-        } else {
-          music.pause();
-          toggle.textContent = "▶ Play Music";
-          visualizer.style.display = "none";
-        }
-      });
+      daysEl.innerText = days;
+      hoursEl.innerText = hours;
+      minutesEl.innerText = minutes;
+      secondsEl.innerText = seconds;
+    }
 
-      music.addEventListener("pause", () => {
-        visualizer.style.display = "none";
-      });
-      music.addEventListener("play", () => {
-        visualizer.style.display = "flex";
-      });
-    </script>
-  </body>
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+
+  <!-- Music Script -->
+  <script>
+    const music = document.getElementById("music");
+    const toggle = document.getElementById("music-toggle");
+
+    toggle.addEventListener("click", () => {
+      music.play();
+      toggle.style.display = 'none'; // hide button after first tap
+    });
+  </script>
+</body>
 </html>
