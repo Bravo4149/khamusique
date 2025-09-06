@@ -47,23 +47,29 @@
         </div>
       </div>
 
-      <!-- Buy Tickets Button -->
-      <button class="btn" onclick="alert('Tickets sales coming soon!')">
+      <!-- Buy Tickets Button (Yoco Payment Gateway) -->
+      <a href="https://pay.yoco.com/sunday-feast" target="_blank" class="btn">
         Buy Tickets
-      </button>
+      </a>
+
+      <!-- Music Player -->
+      <audio id="bg-music" loop>
+        <source src="music/soulful-house.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+
+      <button class="btn" id="music-toggle">▶ Play Music</button>
     </div>
 
     <script>
       // Set the event date
       const eventDate = new Date("2025-10-05T00:00:00").getTime();
 
-      // Get countdown elements
       const daysEl = document.getElementById("days");
       const hoursEl = document.getElementById("hours");
       const minutesEl = document.getElementById("minutes");
       const secondsEl = document.getElementById("seconds");
 
-      // Update countdown every second
       function updateCountdown() {
         const now = new Date().getTime();
         const diff = eventDate - now;
@@ -92,6 +98,20 @@
 
       setInterval(updateCountdown, 1000);
       updateCountdown();
+
+      // Music Toggle
+      const music = document.getElementById("bg-music");
+      const musicToggle = document.getElementById("music-toggle");
+
+      musicToggle.addEventListener("click", () => {
+        if (music.paused) {
+          music.play();
+          musicToggle.textContent = "⏸ Pause Music";
+        } else {
+          music.pause();
+          musicToggle.textContent = "▶ Play Music";
+        }
+      });
     </script>
   </body>
 </html>
