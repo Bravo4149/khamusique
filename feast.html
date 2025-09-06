@@ -5,6 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sunday Feast - By DJ Khamusique</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Music Player */
+      .music-player {
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+
+      #music-toggle {
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: bold;
+        background: linear-gradient(45deg, #ffd700, #ff6b6b);
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        color: white;
+        transition: 0.3s;
+      }
+
+      #music-toggle:hover {
+        transform: scale(1.05);
+      }
+
+      /* Visualizer bars */
+      .visualizer {
+        display: none;
+        align-items: flex-end;
+        gap: 5px;
+        height: 40px;
+      }
+
+      .visualizer span {
+        display: block;
+        width: 6px;
+        height: 10px;
+        background: #ffd700;
+        border-radius: 3px;
+        animation: bounce 1s infinite;
+      }
+
+      .visualizer span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .visualizer span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      .visualizer span:nth-child(4) {
+        animation-delay: 0.6s;
+      }
+      .visualizer span:nth-child(5) {
+        animation-delay: 0.8s;
+      }
+
+      @keyframes bounce {
+        0%, 100% { height: 10px; }
+        50% { height: 40px; }
+      }
+
+      /* 📱 Mobile tweaks */
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2rem;
+        }
+        .subtitle {
+          font-size: 1rem;
+        }
+        .time {
+          font-size: 2rem;
+        }
+        #music-toggle {
+          font-size: 0.9rem;
+          padding: 10px 20px;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Sunday Feast Logo -->
@@ -47,24 +125,28 @@
         </div>
       </div>
 
-      <!-- Buy Tickets Button (Yoco Payment Gateway) -->
-      <a href="https://pay.yoco.com/sunday-feast" target="_blank" class="btn">
-        Buy Tickets
+      <!-- Buy Tickets Button -->
+      <a href="https://pay.yoco.com/sunday-feast" target="_blank">
+        <button class="btn">Buy Tickets</button>
       </a>
 
       <!-- Music Player -->
+      <div class="music-player">
+        <button id="music-toggle">▶ Play Music</button>
+        <div class="visualizer" id="visualizer">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
       <audio id="bg-music" loop>
         <source src="music/soulful-house.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
-
-      <button class="btn" id="music-toggle">▶ Play Music</button>
     </div>
 
     <script>
-      // Set the event date
+      // Countdown
       const eventDate = new Date("2025-10-05T00:00:00").getTime();
-
       const daysEl = document.getElementById("days");
       const hoursEl = document.getElementById("hours");
       const minutesEl = document.getElementById("minutes");
@@ -73,44 +155,44 @@
       function updateCountdown() {
         const now = new Date().getTime();
         const diff = eventDate - now;
-
         if (diff <= 0) {
-          daysEl.innerText =
-            hoursEl.innerText =
-            minutesEl.innerText =
-            secondsEl.innerText =
-              "0";
+          daysEl.innerText = hoursEl.innerText = minutesEl.innerText = secondsEl.innerText = "0";
           return;
         }
-
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
         daysEl.innerText = days;
         hoursEl.innerText = hours;
         minutesEl.innerText = minutes;
         secondsEl.innerText = seconds;
       }
-
       setInterval(updateCountdown, 1000);
       updateCountdown();
 
-      // Music Toggle
+      // Music player + visualizer
       const music = document.getElementById("bg-music");
-      const musicToggle = document.getElementById("music-toggle");
+      const toggle = document.getElementById("music-toggle");
+      const visualizer = document.getElementById("visualizer");
 
-      musicToggle.addEventListener("click", () => {
+      toggle.addEventListener("click", () => {
         if (music.paused) {
           music.play();
-          musicToggle.textContent = "⏸ Pause Music";
+          toggle.textContent = "⏸ Pause Music";
+          visualizer.style.display = "flex";
         } else {
           music.pause();
-          musicToggle.textContent = "▶ Play Music";
+          toggle.textContent = "▶ Play Music";
+          visualizer.style.display = "none";
         }
+      });
+
+      music.addEventListener("pause", () => {
+        visualizer.style.display = "none";
+      });
+      music.addEventListener("play", () => {
+        visualizer.style.display = "flex";
       });
     </script>
   </body>
