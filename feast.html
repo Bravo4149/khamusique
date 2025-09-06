@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sunday Feast - By DJ Khamusique</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Sunday Feast Logo -->
+    <img src="images/sundayfeast.png" alt="Sunday Feast Logo" class="logo" />
+
+    <div class="content">
+      <h1>Sunday Feast</h1>
+      <p class="subtitle">By DJ Khamusique</p>
+      <p>Venue: Thuthukani</p>
+      <p>Theme: Denim & White</p>
+
+      <!-- Why Section -->
+      <section class="why">
+        <h2>Why Sunday Feast?</h2>
+        <p>
+          DJ Khamusique dreamed of being a celebrity, but life showed him a
+          greater purpose. Through soulful deep house, food, and drinks,
+          <strong>Sunday Feast</strong> is his gift to Bethlehem township: a
+          space for joy, connection, and community.
+        </p>
+      </section>
+
+      <!-- Countdown -->
+      <div class="countdown" id="countdown">
+        <div class="time-box">
+          <div class="time" id="days">0</div>
+          <div class="label">Days</div>
+        </div>
+        <div class="time-box">
+          <div class="time" id="hours">0</div>
+          <div class="label">Hours</div>
+        </div>
+        <div class="time-box">
+          <div class="time" id="minutes">0</div>
+          <div class="label">Minutes</div>
+        </div>
+        <div class="time-box">
+          <div class="time" id="seconds">0</div>
+          <div class="label">Seconds</div>
+        </div>
+      </div>
+
+      <!-- Buy Tickets Button -->
+      <button class="btn" onclick="alert('Tickets sales coming soon!')">
+        Buy Tickets
+      </button>
+    </div>
+
+    <script>
+      // Set the event date
+      const eventDate = new Date("2025-10-05T00:00:00").getTime();
+
+      // Get countdown elements
+      const daysEl = document.getElementById("days");
+      const hoursEl = document.getElementById("hours");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+
+      // Update countdown every second
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const diff = eventDate - now;
+
+        if (diff <= 0) {
+          daysEl.innerText =
+            hoursEl.innerText =
+            minutesEl.innerText =
+            secondsEl.innerText =
+              "0";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        daysEl.innerText = days;
+        hoursEl.innerText = hours;
+        minutesEl.innerText = minutes;
+        secondsEl.innerText = seconds;
+      }
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+    </script>
+  </body>
+</html>
