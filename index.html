@@ -7,8 +7,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Background overlays handled by CSS -->
-
   <div class="content-wrapper">
     <!-- Logo -->
     <img src="images/sundayfeast.png" alt="Sunday Feast Logo" class="logo">
@@ -53,12 +51,25 @@
     <!-- Buy Tickets -->
     <button class="btn" onclick="window.open('https://pay.yoco.com/sunday-feast', '_blank')">Buy Tickets</button>
 
-    <!-- Music Player -->
-    <div class="music-player">
-      <button id="music-toggle">Play Music</button>
-      <audio id="music" src="music/yourtrack.mp3" loop></audio>
-      <div class="visualizer">
-        <span></span><span></span><span></span><span></span><span></span>
+    <!-- YouTube Video Section -->
+    <div class="video-section">
+      <h2>Watch DJ Khamza Live</h2>
+      <div class="videos">
+        <!-- Replace VIDEO_ID with actual YouTube video IDs -->
+        <iframe width="100%" height="200" 
+          src="https://www.youtube.com/embed/VIDEO_ID?rel=0&showinfo=0" 
+          title="DJ Khamza Video" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+        <iframe width="100%" height="200" 
+          src="https://www.youtube.com/embed/ANOTHER_VIDEO_ID?rel=0&showinfo=0" 
+          title="DJ Khamza Video" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
       </div>
     </div>
   </div>
@@ -93,17 +104,6 @@
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
-  </script>
-
-  <!-- Music Script -->
-  <script>
-    const music = document.getElementById("music");
-    const toggle = document.getElementById("music-toggle");
-
-    toggle.addEventListener("click", () => {
-      music.play();
-      toggle.style.display = 'none'; // hide button after first tap
-    });
   </script>
 </body>
 </html>
