@@ -1,219 +1,110 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunday Feast - By DJ Khamusique</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="content-wrapper">
+    <!-- Logo -->
+    <img src="images/sundayfeast.png" alt="Sunday Feast Logo" class="logo">
 
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  color: #fff;
-  min-height: 100vh;
-  background: #000;
-  overflow-y: auto;
-  display: flex;
-  justify-content: center;
-}
+    <!-- Title -->
+    <h1>Sunday Feast</h1>
+    <p class="subtitle">By DJ Khamusique</p>
+    <p>Venue: Thuthukani</p>
+    <p>Theme: Denim & White</p>
 
-/* Background blur overlay */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: url("images/background.jpg") no-repeat center/cover;
-  filter: blur(12px) brightness(0.6);
-  z-index: -2;
-}
-body::after {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  z-index: -1;
-}
+    <!-- Why Section -->
+    <section class="why">
+      <h2>Why Sunday Feast?</h2>
+      <p>
+        DJ Khamusique dreamed of being a celebrity, but life showed him a
+        greater purpose. Through soulful deep house, food, and drinks,
+        <strong>Sunday Feast</strong> is his gift to Bethlehem township: a
+        space for joy, connection, and community.
+      </p>
+    </section>
 
-/* Wrapper */
-.content-wrapper {
-  width: 90%;
-  max-width: 650px;
-  margin: 20px auto;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(12px);
-  border-radius: 15px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+    <!-- Details Section -->
+    <section class="details">
+      <h2>Details</h2>
+      <p>Get ready to eat, sip and dance the Sunday away.</p>
+      <p><strong>Date:</strong> 11 October</p>
+      <p><strong>Time:</strong> 12:00 – 20:00</p>
+      <p><strong>Ticket Price:</strong> R250 (includes a meal, drinks sold at venue)</p>
+      <p><strong>Theme:</strong> Denim & Jean</p>
+      <p><strong>Venue:</strong> Thuthukani Guest House</p>
+      <p class="save-date">Save the date!</p>
+    </section>
 
-/* Logo */
-.logo { width: 180px; margin: 10px 0; }
+    <!-- Countdown -->
+    <div class="countdown-wrapper">
+      <div class="countdown" id="countdown">
+        <div class="time-box">
+          <div class="time" id="days">0</div>
+          <div class="label">Days</div>
+        </div>
+        <div class="time-box">
+          <div class="time" id="hours">0</div>
+          <div class="label">Hours</div>
+        </div>
+        <div class="time-box">
+          <div class="time" id="minutes">0</div>
+          <div class="label">Minutes</div>
+        </div>
+        <div class="time-box">
+          <div class="time" id="seconds">0</div>
+          <div class="label">Seconds</div>
+        </div>
+      </div>
+    </div>
 
-/* Text */
-h1 { font-size: 2.8rem; color: #ffd700; margin-bottom: 10px; }
-.why h2 { font-size: 1.6rem; color: #ffd700; margin-bottom: 10px; }
-.why p { font-size: 1rem; line-height: 1.5; color: #eee; }
+    <!-- Buy Tickets -->
+    <button class="btn" onclick="window.open('https://pay.yoco.com/sunday-feast', '_blank')">Buy Tickets</button>
 
-/* Why Section */
-.why {
-  margin: 20px 0;
-  padding: 15px;
-  background: rgba(0,0,0,0.6);
-  border: 1px solid rgba(255,215,0,0.3);
-  border-radius: 10px;
-}
+    <!-- YouTube Video Section -->
+    <div class="video-section">
+      <h2>Watch DJ Khamza Live</h2>
+      <div class="videos">
+        <iframe src="https://www.youtube.com/embed/_2ztXfb2oLg" title="DJ Khamza Video" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/oJBElfa6Y3Y" title="DJ Khamza Video" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
 
-/* Details Section */
-.details {
-  margin: 20px 0;
-  padding: 15px;
-  background: rgba(0,0,0,0.6);
-  border: 1px solid rgba(255,215,0,0.3);
-  border-radius: 10px;
-  text-align: left;
-}
+  <!-- Countdown Script -->
+  <script>
+    const eventDate = new Date("2025-10-11T12:00:00").getTime();
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
 
-.details h2 {
-  font-size: 1.6rem;
-  color: #ffd700;
-  margin-bottom: 10px;
-  text-align: center;
-}
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = eventDate - now;
 
-.details p {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 5px 0;
-}
+      if(diff <= 0){
+        document.getElementById("countdown").innerHTML = "<p class='expired'>The event has started!</p>";
+        return;
+      }
 
-.details strong {
-  color: #ffd700;
-}
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((diff % (1000*60)) / 1000);
 
-.save-date {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #ff6b6b;
-}
+      daysEl.innerText = days;
+      hoursEl.innerText = hours;
+      minutesEl.innerText = minutes;
+      secondsEl.innerText = seconds;
+    }
 
-/* Expired message */
-.expired {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #ff6b6b;
-  text-align: center;
-}
-
-/* Countdown */
-.countdown-wrapper {
-  width: 100%;
-  margin: 20px 0;
-  border: 2px solid #ffd700;
-  border-radius: 15px;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  background: rgba(0,0,0,0.4);
-  box-shadow: 0 0 15px rgba(255,215,0,0.6);
-}
-
-.countdown {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.time-box {
-  flex: 1;
-  min-width: 60px;
-  background: rgba(0,0,0,0.7);
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  padding: 15px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.time {
-  font-size: 2rem;
-  font-weight: bold;
-  background: linear-gradient(45deg, #ffd700, #ff6b6b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 15px rgba(255,215,0,0.8);
-  animation: pulse 1s infinite, glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 10px rgba(255,215,0,0.6); }
-  to { text-shadow: 0 0 20px rgba(255,215,0,1); }
-}
-
-.label {
-  font-size: 0.9rem;
-  color: #fff;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-top: 5px;
-}
-
-/* Button */
-.btn {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  padding: 12px 30px;
-  font-weight: bold;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  color: white;
-  transition: 0.3s;
-  background: linear-gradient(45deg,#ff6b6b,#f94d6a);
-}
-
-.btn:hover { 
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(249,77,106,0.8);
-}
-
-/* Video Section */
-.video-section { width: 100%; margin-top: 20px; }
-.video-section h2 { font-size: 1.6rem; color: #ffd700; margin-bottom: 15px; }
-.videos { display: flex; flex-direction: column; gap: 15px; }
-.videos iframe { width: 100%; height: 250px; border-radius: 12px; }
-
-/* Desktop video layout */
-@media (min-width: 768px) {
-  .videos { flex-direction: row; }
-  .videos iframe { flex: 1; height: 300px; }
-}
-
-/* Responsive adjustments for mobile */
-@media (max-width: 480px) {
-  h1 { font-size: 2rem; }
-  .why h2 { font-size: 1.2rem; }
-  .why p { font-size: 0.9rem; }
-  .details h2 { font-size: 1.2rem; }
-  .details p { font-size: 0.9rem; }
-  .time { font-size: 1.5rem; }
-  .label { font-size: 0.8rem; }
-  .time-box { min-width: 50px; padding: 10px 5px; }
-  .btn { font-size: 1rem; padding: 10px 25px; }
-  .videos iframe { height: 180px; }
-  .video-section h2 { font-size: 1.2rem; }
-}
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
