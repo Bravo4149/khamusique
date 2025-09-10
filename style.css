@@ -102,6 +102,14 @@ h1 { font-size: 2.8rem; color: #ffd700; margin-bottom: 10px; }
   color: #ff6b6b;
 }
 
+/* Expired message */
+.expired {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ff6b6b;
+  text-align: center;
+}
+
 /* Countdown */
 .countdown-wrapper {
   width: 100%;
@@ -119,7 +127,7 @@ h1 { font-size: 2.8rem; color: #ffd700; margin-bottom: 10px; }
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  flex-wrap: wrap; /* allows wrapping on small screens */
+  flex-wrap: wrap;
   width: 100%;
 }
 
